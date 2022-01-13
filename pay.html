@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+    <script src="https://use.fontawesome.com/1012e03d82.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+    <nav class="d-flex flex-row justify-content-between align-items-center">
+        <div>
+            <a href="index.html"><p>LOGO</p></a>
+        </div>
+        <!-- SHOPPING CART ITEMS -->
+        <div>
+            <ul class="d-flex flex-row align-items-center justify-content-center">
+                <li class="fa fa-shopping-cart" id="shopping_cart_nav"></li>
+                <li class="d-none" id="nav__counter">0</li>
+            </ul>
+        </div>
+    </nav>
+    <main>
+        <!-- PRODUCTS LIST -->
+        <section class="container main_menu">
+            <div class="product__list">
+                <ul class="product__details" id="product__details">
+                    <li class="">
+                        <ul class="d-flex flex-row">
+                            <li class="product__name mg-rt-50">Product Name</li>
+                            <li class="product__price">Product Price</li>
+                        </ul>
+                    </li>
+
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>

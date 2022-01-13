@@ -4,28 +4,117 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+    <script src="https://use.fontawesome.com/1012e03d82.js"></script>
+    <link rel="stylesheet" href="style.css">
     <title>Document</title>
 </head>
 <body>
-    <div class="container-background">
-        
-        <div class="container">
-            <div class="decoration-main-page-one"></div>
-            <div class="row">
-                <div class="col centered-text">
-                    <h1>dog training</h1>
-                    <p>Vitae congue mauris rhoncus aenean vel elit scelerisque. 
-                            Consequat nisl vel pretium lectus quam id leo in vitae. 
-                            Dictum sit amet justo donec enim diam vulputate. Sociis 
-                            natoque penatibus et magnis dis parturient.</p>
-
-                </div>
-                <div class="col"><img class="promo-image" src="assets/dog.jpg" alt=""></div>
-            </div>
+    <nav class="d-flex flex-row justify-content-between align-items-center">
+        <div>
+            <a href="index.html"><p>LOGO</p></a>
         </div>
-    </div>
+        <!-- SHOPPING CART ITEMS -->
+        <div>
+            <a href="pay.html">
+            <ul class="d-flex flex-row align-items-center justify-content-center">
+                <li class="fa fa-shopping-cart" id="shopping_cart_nav"></li>
+                <li class="d-none" id="nav__counter">0</li>
+            </ul>
+            </a>
+        </div>
+    </nav>
+    <main>
+        <!-- MAIN MENU -->
+        <section class="container main_menu">
+            <div>
+                <h2>Latest discounts</h2>
+                <ul>
+                    <li>Dry food</li>
+                    <li>Interactive toys</li>
+                    <li>Leashes</li>
+                    <li>Harnesses</li>
+                    <li>Muzzles</li>
+                    <li>Kennels</li>
+                </ul>
+            <!-- PROMOTED PRODUCTS -->
+            </div>
+
+            <div>
+
+            </div>
+        </section>
+        <!-- FEATURED PRODUCTS -->
+        <section>
+            <div class="container d-flex flex-column justify-content-center align-items-center">
+                <h1>Featured Products</h1>
+                <ul class="featured__list">
+                    <li>All</li>
+                    <li>Barf food</li>
+                    <li>Treats</li>
+                    <li>Chewing</li>
+                    <li>Wet food</li>    
+                </ul>
+            </div>
+            <!-- FEATURED ITEMS LIST -->
+            <div class="container d-flex flex-row flex-wrap justify-content-center">
+                <div class="card__product">
+                    <div><img class="image__card" src="assets/food_crave_beefpate_2.png" alt=""></div>
+                    <div class="card__shopping">
+                        <ul>
+                            <li class="fa fa-shopping-cart"></li>
+                        </ul>
+                    </div>
+                    <div class="card__product__label">
+                        <p>Crave - Beef Paté</p>
+                        <p>$30.00</p>
+                    </div>
+                </div>
+
+                <div class="card__product">
+                    <div><img class="image__card" src="assets/food_crave_beefpate_2.png" alt=""></div>
+                    <div class="card__shopping">
+                        <ul>
+                            <li class="fa fa-shopping-cart"></li>
+                        </ul>
+                    </div>
+                    <div class="card__product__label">
+                        <p>Old Prince - Beef</p>
+                        <p>$45.50</p>
+                    </div>
+                </div>
+                
+                <div class="card__product">
+                    <div><img class="image__card" src="assets/food_crave_beefpate_2.png" alt=""></div>
+                    <div class="card__shopping">
+                        <ul>
+                            <li class="fa fa-shopping-cart"></li>
+                        </ul>
+                    </div>
+                    <div class="card__product__label">
+                        <p>Royal Canin - Diet</p>
+                        <p>$9.99</p>
+                    </div>
+                </div> 
+
+                <div class="card__product">
+                    <div><img class="image__card" src="assets/food_crave_beefpate_2.png" alt=""></div>
+                    <div class="card__shopping">
+                        <ul>
+                            <li class="fa fa-shopping-cart"></li>
+                        </ul>
+                    </div>
+                    <div class="card__product__label">
+                        <p>Wolf of Wilderness - Deer Meat</p>
+                        <p>$55.00</p>
+                    </div>
+                </div> 
+            </div>
+        </section>
+    </main>
     <script src="app.js"></script>
 </body>
 </html>
