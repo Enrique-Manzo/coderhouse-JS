@@ -5,6 +5,7 @@ const productDetails = document.querySelector(".product__details");
 let productList = document.querySelector(".product__list");
 const totals = document.querySelector(".total");
 
+
 // Creates CART object to store product information
 const CART = {
     KEY: "thisisatestkey",
@@ -82,8 +83,10 @@ const buildProductsList = () => {
         // We initialize our cart
         CART.init();
 
-        let totalCounter = 0;
+        // Variable used to store the final price
+        let totalCounter = 0;        
 
+        // Iterates through cart contents to build the list
         for (let i=0; i < CART.contents.length; i++) {
             
             // Gets data from the cart contents JSON
@@ -100,10 +103,15 @@ const buildProductsList = () => {
             // Inserts HTML under the productDetails element defined above
             productDetails.appendChild(div);
             
+            // Add productPriceHTML to totalCounter
             totalCounter += parseFloat(productPriceHTML);
         }
 
-        totals.textContent = parseFloat(totalCounter);
+        // Update price
+        if (totalCounter > 0) {
+            totals.textContent = parseFloat(totalCounter).toFixed(2);
+        }
+
     }
 }
 
@@ -132,6 +140,12 @@ const removeProduct = () => {
             // We empty our cart, we'll later fill it in with the elements above
             CART.contents = [];
 
+            // Array that stores discounted prices <li class="discounted_price"> if any
+            const discountedPrices = document.querySelectorAll(".discounted__price");
+
+            // Variable to store the final price
+            let totalCounter = 0;
+
             // If all the HTML products on the page have been removed, leave the cart empty
             if (currentElements.length > 0) {
 
@@ -148,8 +162,24 @@ const removeProduct = () => {
                         // There are blank spaces that we need to trim
                         productName: elementPropertiesList[0].trim(),
                         productPrice: parseFloat(elementPropertiesList[1].trim()),
-                    });   
+                    });
+
+                    // Flow control to decide which price to use to compute total
+                    // If there are items in discountedPrices it'll use the discounted prices
+                    if (discountedPrices.length > 0) {
+                        totalCounter += parseFloat(discountedPrices[a].textContent)
+                    } else {
+                        totalCounter += parseFloat(elementPropertiesList[1].trim());
+                    }
+                    
                 }
+            }
+
+            // Update price
+            if (currentElements.length > 0) {
+                totals.textContent = parseFloat(totalCounter).toFixed(2);
+            } else {
+                totals.textContent = "Please add products to the cart to calculate the total.";
             }
 
             // Save new CART.contents as string in browser memory
