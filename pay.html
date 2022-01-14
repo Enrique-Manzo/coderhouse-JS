@@ -25,22 +25,36 @@
         </div>
     </nav>
     <main>
-        <!-- PRODUCTS LIST -->
+        <!-- DISCOUNT FIELD -->
         <section class="container main_menu">
+            <div class="discount">
+                <input type="text" id="discount"></input>
+                <div class="discount__apply">Apply!</div>
+            </div>
+        </section>
+        <!-- PRODUCTS LIST -->
+        <section class="container">
             <div class="product__list">
                 <ul class="product__details" id="product__details">
                     <li class="">
                         <ul class="d-flex flex-row">
                             <li class="product__name mg-rt-50">Product Name</li>
-                            <li class="product__price">Product Price</li>
+                            <li class="product__prices">Product Price</li>
                         </ul>
                     </li>
 
                 </ul>
+                <div>
+                    <ul class="d-flex flex-row">
+                        <li>TOTAL:</li>
+                        <li class="total">Please add items to the cart to calculate the total.</li>
+                    </ul>
+                </div>
             </div>
         </section>
     </main>
 
     <script src="app.js"></script>
+    <script src="discount.js"></script>
 </body>
 </html>

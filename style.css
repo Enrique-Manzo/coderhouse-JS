@@ -162,3 +162,33 @@ ul li {
 .mg-rt-50 {
     margin-right: 50px;
 }
+
+/* DISCOUNTS */
+
+.discount {
+    display: flex;
+    flex-direction: row;
+}
+
+.discount__apply {
+    margin-left: 15px;
+    border-radius: 2px;
+    border: 1px solid black;
+    background-color: #F39C12;
+    padding: 0 10px 0 10px;
+}
+
+.discount__apply:hover {
+    cursor: pointer;
+}
+
+.discount__apply:active {
+    background-color: #F8C471;
+}
+
+/* TEXT EFFECTS */
+
+.strike {
+    text-decoration: line-through;
+    color: red;
+}

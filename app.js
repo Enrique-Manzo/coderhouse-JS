@@ -3,6 +3,7 @@ const navBarCounter = document.querySelector("#nav__counter");
 const productLabel = document.querySelectorAll(".card__product__label");
 const productDetails = document.querySelector(".product__details");
 let productList = document.querySelector(".product__list");
+const totals = document.querySelector(".total");
 
 // Creates CART object to store product information
 const CART = {
@@ -81,6 +82,8 @@ const buildProductsList = () => {
         // We initialize our cart
         CART.init();
 
+        let totalCounter = 0;
+
         for (let i=0; i < CART.contents.length; i++) {
             
             // Gets data from the cart contents JSON
@@ -89,7 +92,7 @@ const buildProductsList = () => {
 
             // This adds a div with the products, I need to find an easier way to add this HTML code
             const div = document.createElement("div");
-            div.innerHTML = `<ul class="d-flex flex-row product__row"> \
+            div.innerHTML = `<ul class="d-flex flex-row product__row product__text"> \
             <li class="product__name mg-rt-50">${productNameHTML}</li> \
             <li class="product__price">$${productPriceHTML}</li><i class="fa fa-times"></i>\
             </ul>`
@@ -97,7 +100,10 @@ const buildProductsList = () => {
             // Inserts HTML under the productDetails element defined above
             productDetails.appendChild(div);
             
+            totalCounter += parseFloat(productPriceHTML);
         }
+
+        totals.textContent = parseFloat(totalCounter);
     }
 }
 
