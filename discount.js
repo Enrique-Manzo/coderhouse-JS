@@ -18,7 +18,7 @@ discountButton.addEventListener("click", () => {
     // If a code has been applied before, we won't apply it again
     if (codeIsValid && codeNotApplied) {
 
-        CART.init()
+        Cart.init()
 
         let totalCounter = 0;
 
@@ -26,7 +26,7 @@ discountButton.addEventListener("click", () => {
         for (i=0; i < productText.length; i++) {
 
             // Here we compute the price after the discount is made
-            const price = CART.contents[i]["productPrice"];
+            const price = Cart.contents[i]["productPrice"];
             const applicableDiscount = 0.75;
             const discountedPrice = (price * applicableDiscount).toFixed(2)
 

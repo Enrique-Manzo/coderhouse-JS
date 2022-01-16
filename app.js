@@ -7,32 +7,36 @@ const totals = document.querySelector(".total");
 
 
 // Creates CART object to store product information
-const CART = {
-    KEY: "thisisatestkey",
+class CART {
+    constructor (KEY, contents) {
+
+    this.KEY = "thisisatestkey";
     // Array with products
-    contents: [],
+    this.contents = [];
+    }
     
     // OBJECT METHODS
     // Object initialization: checks whether there are products stored in memory
     init() {
-        let _contents = localStorage.getItem(CART.KEY);
+        let _contents = localStorage.getItem(this.KEY);
         if (_contents) {
-            CART.contents = JSON.parse(_contents);
+            this.contents = JSON.parse(_contents);
         } else {
-            CART.dumpItems();
+            this.dumpItems();
         }
-    },
+    }
 
     // dumpItems: saves products to browser memory (only strings)
     dumpItems () {
-        let cartContentsString = JSON.stringify(CART.contents)
-        localStorage.setItem(CART.KEY, cartContentsString)
-    },
+        let cartContentsString = JSON.stringify(this.contents)
+        localStorage.setItem(this.KEY, cartContentsString)
+    }
 
     // logContents: control method to check whether products are being saved
-    logContents () {console.log(CART.contents)},
+    logContents () {console.log(this.contents)}
 }
 
+let Cart = new CART();
 
 // Function that listens for clicks in any of the shopping cart icons
 const addItem = () => {
@@ -45,7 +49,7 @@ const addItem = () => {
         const logItem = () => {
 
             // Writes the number of items in the cart
-            numberOfItems = CART.contents.length + 1
+            numberOfItems = Cart.contents.length + 1
             navBarCounter.textContent = numberOfItems;
 
             // Makes cart counter visible if there are any items in it
@@ -57,13 +61,13 @@ const addItem = () => {
             products = productLabel[i].textContent.split("\n")
             
             // Appends content to CART.contents array
-            CART.contents.push({
+            Cart.contents.push({
                 productName: products[1].trim(),
                 productPrice: parseFloat(products[2].trim().replace("$", "")),
             })
             
             // Saves data to memory
-            CART.dumpItems()
+            Cart.dumpItems()
 
         };
 
@@ -81,17 +85,17 @@ const buildProductsList = () => {
     if (pageName == "pay.html") {
 
         // We initialize our cart
-        CART.init();
+        Cart.init();
 
         // Variable used to store the final price
         let totalCounter = 0;        
 
         // Iterates through cart contents to build the list
-        for (let i=0; i < CART.contents.length; i++) {
+        for (let i=0; i < Cart.contents.length; i++) {
             
             // Gets data from the cart contents JSON
-            const productNameHTML = CART.contents[i]["productName"];
-            const productPriceHTML = CART.contents[i]["productPrice"]
+            const productNameHTML = Cart.contents[i]["productName"];
+            const productPriceHTML = Cart.contents[i]["productPrice"]
 
             // This adds a div with the products, I need to find an easier way to add this HTML code
             const div = document.createElement("div");
@@ -126,7 +130,7 @@ const removeProduct = () => {
 
 
     // Loops the number of items in the cart
-    for (let i=0; i < CART.contents.length; i++) {
+    for (let i=0; i < Cart.contents.length; i++) {
         
         // Function definition for the X button event listener below
         const deleteItem = () => {
@@ -138,7 +142,7 @@ const removeProduct = () => {
             const currentElements = document.querySelectorAll(".product__row");
 
             // We empty our cart, we'll later fill it in with the elements above
-            CART.contents = [];
+            Cart.contents = [];
 
             // Array that stores discounted prices <li class="discounted_price"> if any
             const discountedPrices = document.querySelectorAll(".discounted__price");
@@ -158,7 +162,7 @@ const removeProduct = () => {
                     // Create new object from the name and price items on the array above
                     // and append it to the CART.contents array
                     // The function will append as many objects as items in currentElements
-                    CART.contents.push({
+                    Cart.contents.push({
                         // There are blank spaces that we need to trim
                         productName: elementPropertiesList[0].trim(),
                         productPrice: parseFloat(elementPropertiesList[1].trim()),
@@ -183,7 +187,7 @@ const removeProduct = () => {
             }
 
             // Save new CART.contents as string in browser memory
-            CART.dumpItems();
+            Cart.dumpItems();
 
             // End of daleteIcon event listener function
             
@@ -196,7 +200,7 @@ const removeProduct = () => {
 
 // Listens for DOM content loads and initializes the CART object
 document.addEventListener("DOMContentLoaded", ()=> {
-    CART.init();
+    Cart.init();
 })
 
 // Call function that listens for click in shopping cart icon
