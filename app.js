@@ -1,19 +1,21 @@
 // ----------------------GLOBAL VARIABLES----------------------
-const shoppingCart = document.querySelectorAll(".card__shopping");
 const navBarCounter = document.querySelector("#nav__counter");
-const productLabel = document.querySelectorAll(".card__product__label");
-const productDetails = document.querySelector(".product__details");
 let productList = document.querySelector(".product__list");
-const totals = document.querySelector(".total");
 
 
 // ----------------------CREATES CART OBJECT----------------------
 class CART {
-    constructor (KEY, contents) {
+    constructor (purchaseIcons, productData, productNameClass, productPriceClass, parentAppendProducts, totalClassName) {
 
     this.KEY = "thisisatestkey";
     // Array with products
     this.contents = [];
+    this.purchaseIcons = document.querySelectorAll(purchaseIcons);
+    this.productData = document.querySelectorAll(productData);
+    this.productNameClass = productNameClass;
+    this.productPriceClass = productPriceClass;
+    this.parentAppendProducts = document.querySelector(parentAppendProducts);
+    this.totalElement = document.querySelector(totalClassName);
     }
     
     // OBJECT METHODS
@@ -26,23 +28,13 @@ class CART {
             this.dumpItems();
         }
 
-        // Loops through shopping cart array
-        for (let i=0; i < shoppingCart.length; i++) {
+        console.log(this.purchaseIcons[1]);
+        console.log(this.productData);
+        if (this.contents.length > 0) {
+            navBarCounter.classList.remove("d-none");
+            }
 
-            // Function definition for shoppingCart event listener below
-            // Makes counter visible, increments product counter in object, updates counter, saves counter in memory
-            const logItem = () => {
-
-                // Writes the number of items in the cart
-                let numberOfItems = this.contents.length + 1
-                navBarCounter.textContent = numberOfItems;
-
-                // Makes cart counter visible if there are any items in it
-                if (numberOfItems > 0) {
-                navBarCounter.classList.remove("d-none");
-                }
-            };
-        };
+        navBarCounter.textContent = this.contents.length;
 
     }
 
@@ -60,9 +52,9 @@ class CART {
     addItem () {
 
         // Loops through shopping cart array
-        for (let i=0; i < shoppingCart.length; i++) {
+        for (let i=0; i < this.purchaseIcons.length; i++) {
 
-            // Function definition for shoppingCart event listener below
+            // Function definition for purchaseIcons event listener below
             // Makes counter visible, increments product counter in object, updates counter, saves counter in memory
             const logItem = () => {
 
@@ -75,22 +67,26 @@ class CART {
                 navBarCounter.classList.remove("d-none");
                 }
                 
-                // Creates new array by splitting the text in the productLabel elements
-                let products = productLabel[i].textContent.split("\n")
+                // Variables with product name and price at this.productData index
+                const productName = this.productData[i].querySelector(this.productNameClass).textContent;
+                const productPrice = this.productData[i].querySelector(this.productPriceClass).textContent.replace("$", "")
                 
                 // Appends content to CART.contents array
                 this.contents.push({
-                    productName: products[1].trim(),
-                    productPrice: parseFloat(products[2].trim().replace("$", "")),
+                    productName: productName,
+                    productPrice: parseFloat(productPrice),
                 })
                 
                 // Saves data to memory
                 this.dumpItems()
 
+                console.log(this.purchaseIcons[i]);
+
             };
 
             // Listener function to check whether the cart icon is clicked and add the item to CART
-            shoppingCart[i].addEventListener("click", logItem);
+            this.purchaseIcons[i].addEventListener("click", logItem);
+            
         }
     }
 
@@ -122,8 +118,8 @@ class CART {
                 <li class="product__price">$${productPriceHTML}</li><i class="fa fa-times"></i>\
                 </ul>`
 
-                // Inserts HTML under the productDetails element defined above
-                productDetails.appendChild(div);
+                // Inserts HTML under the productDetails element defined in the constructor
+                this.parentAppendProducts.appendChild(div);
                 
                 // Add productPriceHTML to totalCounter
                 totalCounter += parseFloat(productPriceHTML);
@@ -131,7 +127,7 @@ class CART {
 
             // Update price
             if (totalCounter > 0) {
-                totals.textContent = parseFloat(totalCounter).toFixed(2);
+                this.totalElement.textContent = parseFloat(totalCounter).toFixed(2);
             }
 
         }
@@ -199,10 +195,20 @@ class CART {
 
                 // Update price
                 if (currentElements.length > 0) {
-                    totals.textContent = parseFloat(totalCounter).toFixed(2);
+                    this.totalElement.textContent = parseFloat(totalCounter).toFixed(2);
                 } else {
-                    totals.textContent = "Please add products to the cart to calculate the total.";
+                    this.totalElement.textContent = "Please add products to the cart to calculate the total.";
                 }
+
+                if (this.contents.length > 0) {
+                    navBarCounter.classList.remove("d-none");
+                    } else {
+                        navBarCounter.classList.add("d-none");
+                    }
+        
+                navBarCounter.textContent = this.contents.length;
+
+
 
                 // Save new CART.contents as string in browser memory
                 Cart.dumpItems();
@@ -291,9 +297,9 @@ class SLIDER {
 // ----------------------CREATES MODAL OBJECT----------------------
 class MODALWINDOW {
     constructor(modal_, overlay_, closeButton, automatic) {
-        this.modal = document.querySelector(modal_),
-        this.overlay = document.querySelector(overlay_),
-        this.closeButton = document.querySelector(closeButton),
+        this.modal = document.querySelector(modal_);
+        this.overlay = document.querySelector(overlay_);
+        this.closeButton = document.querySelector(closeButton);
         this.automatic = automatic;
     }
 
@@ -324,7 +330,14 @@ class MODALWINDOW {
 };
 
 // Creates new CART object
-let Cart = new CART();
+const Cart = new CART(
+    purchaseIcons=".purchase-icon", // Any clickable object that will trigger the action of adding the product to the cart
+    productData=".card__product__label", // Class name that contains the product name and price
+    productNameClass=".product__name__", // Class name of product names
+    productPriceClass=".product__price__", // Class name of prices
+    parentAppendProducts=".product__details", // Class name of div where product prices and names will be appended on payments page
+    totalClassName=".total" // Class name of element showing the total on payments page
+    );
 
 // Listens for DOM content loads and initializes the CART object
 document.addEventListener("DOMContentLoaded", ()=> {
@@ -341,7 +354,7 @@ Cart.buildProductsList();
 Cart.removeProduct();
 
 // Creates new SLIDER object
-slider = new SLIDER(
+const slider = new SLIDER(
     child_element=".card__slider",
     button_left=".arrow-prev",
     button_right=".arrow-next"
@@ -350,7 +363,7 @@ slider = new SLIDER(
 slider.init();
 
 // Creates new MODALWINDOW object
-modalWindow = new MODALWINDOW(
+const modalWindow = new MODALWINDOW(
     modal_=".modal__internal",
     overlay_=".overlay",
     closeButton=".close-modal",
