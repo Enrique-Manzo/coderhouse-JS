@@ -2,7 +2,6 @@
 const navBarCounter = document.querySelector("#nav__counter");
 let productList = document.querySelector(".product__list");
 
-
 // ----------------------CREATES CART OBJECT----------------------
 class CART {
     constructor (purchaseIcons, productData, productNameClass, productPriceClass, parentAppendProducts, totalClassName) {
@@ -28,8 +27,6 @@ class CART {
             this.dumpItems();
         }
 
-        console.log(this.purchaseIcons[1]);
-        console.log(this.productData);
         if (this.contents.length > 0) {
             navBarCounter.classList.remove("d-none");
             }
@@ -329,6 +326,23 @@ class MODALWINDOW {
 
 };
 
+// ----------------------CREATES PRODUCT OBJECT----------------------
+
+class PRODUCT {
+    constructor (id, productName, price, brand, size=[], age=[], recovery=false, specialDiet=false, overweight=false, packageWeight=[]) {
+        this.id=id,
+        this.productName=productName,
+        this.price=price,
+        this.brand=brand,
+        this.size=size,
+        this.age=age,
+        this.recovery=recovery,
+        this.specialDiet=specialDiet,
+        this.overweight=overweight,
+        this.packageWeight=packageWeight
+    }
+}
+
 // Creates new CART object
 const Cart = new CART(
     purchaseIcons=".purchase-icon", // Any clickable object that will trigger the action of adding the product to the cart
@@ -371,3 +385,8 @@ const modalWindow = new MODALWINDOW(
 );
 
 modalWindow.init()
+
+productsData.sort((a, b) => {
+    return a.price - b.price;
+});
+console.log(productsData);
