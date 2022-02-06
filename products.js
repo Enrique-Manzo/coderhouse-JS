@@ -119,5 +119,49 @@ const productsData = [
         "special diet": false,
         "overweight": true,
         "package-weight": [3, 15]
-    }
+    },
+    {
+        "name": "Distinction Canine Beef Recipe",
+        "brand": "Nature's Logic",
+        "price": 20,
+        "size": ["small", "medium", "large"],
+        "age": ["puppy", "adult", "senior"],
+        "recovery": false,
+        "special diet": false,
+        "overweight": true,
+        "package-weight": [3, 15]
+    },
+    {
+        "name": "Canine Rabbit Feast",
+        "brand": "Nature's Logic",
+        "price": 25,
+        "size": ["large"],
+        "age": ["senior"],
+        "recovery": true,
+        "special diet": true,
+        "overweight": false,
+        "package-weight": [7.5, 15]
+    },
+    {
+        "name": "Canine Venison Meal Feast",
+        "brand": "Nature's Logic",
+        "price": 30,
+        "size": ["small"],
+        "age": ["adult", "senior"],
+        "recovery": false,
+        "special diet": true,
+        "overweight": false,
+        "package-weight": [3, 15]
+    },
+    {
+        "name": "Canine Duck&Salmon Meal Feast",
+        "brand": "Nature's Logic",
+        "price": 35,
+        "size": ["small", "medium"],
+        "age": ["puppy", "adult"],
+        "recovery": true,
+        "special diet": true,
+        "overweight": true,
+        "package-weight": [3, 15]
+    },
 ]

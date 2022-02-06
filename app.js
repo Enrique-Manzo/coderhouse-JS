@@ -33,6 +33,9 @@ class CART {
 
         navBarCounter.textContent = this.contents.length;
 
+        this.purchaseIcons = document.querySelectorAll(purchaseIcons);
+        this.productData = document.querySelectorAll(productData);
+
     }
 
     // dumpItems: saves products to browser memory (only strings)
@@ -291,6 +294,197 @@ class SLIDER {
         }
 }
 
+// ----------------------CREATES RECOMMENDATION ENGINE SLIDER----------------------
+class RECOMMENDATION_ENGINE {
+    constructor (child_element, startOver, optionToRight, confirmButton) {
+        // CSS class (string) of the card or element that will slide
+        this.child = child_element,
+        this.button_left = startOver,
+        this.optionToRight = optionToRight,
+        this.confirm = confirmButton,
+        // Slide with offset
+        this.offSetWidth = 0;
+        this.conditions = {
+            "age": "",
+            "size": "",
+            "recovery": false,
+            "specialDiet": false,
+            "overweight": false};
+        this.container = document.querySelector(".recommendation__container");
+    }
+
+        init() {
+            // Fetches the two buttons
+            const buttonLeft = document.querySelector(this.button_left);
+            const optionToRight = document.querySelectorAll(this.optionToRight);
+
+            // Array with all the child elements
+            const cardList = document.querySelectorAll(this.child);
+            
+            // Distance to move absolute-positioned objects from
+            let leftDistance = 0;
+
+            // Loop that assings each child element a distance from the starting position
+            // The slide track is a horizontal sequence of child elements
+            for (let i=0; i < cardList.length; i++) {
+                
+                const width = cardList[i].offsetWidth;
+                cardList[i].style.left = leftDistance + "px";
+                leftDistance += width;
+            }
+
+            for (const option of optionToRight) {
+
+                option.addEventListener("click", () => {
+
+                    // Adds slide width to the current offset so that all slides are relocated
+                    // to the right of the current position
+                    this.offSetWidth += cardList[1].offsetWidth;
+    
+                    // If the track reaches the end, updates the slide width offset to the last value
+                    if (this.offSetWidth >= ((cardList.length-1) * cardList[1].offsetWidth)) {
+                        this.offSetWidth = (cardList.length-1) * cardList[1].offsetWidth;
+                    }
+                    
+                    // Moves all child elements in the amount specified in this.offSetWidth
+                    for (let a=0; a < cardList.length; a++) {
+                        cardList[a].style.transform = "translateX(-" + this.offSetWidth + "px)";
+                    }
+
+                    option.classList.toggle("recommendation__selected")
+         
+                    switch (option.textContent) {
+                        case "Puppy":
+                            this.conditions.age = "puppy";
+                            break;
+                        case "Adult":
+                            this.conditions.age = "adult";
+                            break;
+                        case "Senior":
+                            this.conditions.age = "senior";
+                            break;
+                        case "Small":
+                            this.conditions.size = "small";
+                            break;
+                        case "Medium":
+                            this.conditions.size = "medium";
+                            break;
+                        case "Large":
+                            this.conditions.size = "large";
+                            break;
+                        case "Recovering from desease":
+                            this.conditions.recovery = true;
+                            break;
+                        case "Food allergies":
+                            this.conditions.specialDiet = true;
+                            break;
+                        case "Overweight":
+                            this.conditions.overweight = true;
+                            break;
+                    }
+
+                    console.log(this.conditions);
+                    
+                })
+            }
+
+            buttonLeft.addEventListener("click", () => {
+    
+                // Substracts one slide width so that all slides are relocated to the left
+                // of the current position
+                this.offSetWidth -= cardList[1].offsetWidth;
+
+                // If it's the first slide, the offset is reset, this prevents moving slides to
+                // the right when we are placed on the first slide
+                if (this.offSetWidth <= 0) {
+                    this.offSetWidth = 0;
+                }
+                
+                // Moves all child elements in the amount specified in this.offSetWidth
+                for (let a=0; a < cardList.length; a++) {
+                    cardList[a].style.transform = "translateX(0px)";
+                }
+
+                for (const option of optionToRight) {
+                    option.classList.remove("recommendation__selected");
+                };
+
+                this.offSetWidth = 0;
+
+                this.conditions = {};
+            })
+
+            const showProducts = () => {
+
+                const products = []
+                
+                for (const product of productsData) {
+                    if (product.age.includes(this.conditions.age) && product.size.includes(this.conditions.size)) {
+                        if (
+                            (this.conditions.recovery && this.conditions.recovery == product.recovery) ||
+                            (this.conditions.specialDiet && this.conditions.specialDiet == product["special diet"]) ||
+                            (this.conditions.overweight && this.conditions.overweight == product.overweight)
+                        ) {
+                            products.push(product);
+                        }
+                    } 
+                }
+
+                this.container.classList.add("hide");
+
+                for (const product of products) {
+
+                
+                    // This adds a div with the products, I need to find an easier way to add this HTML code
+                    const div = document.createElement("div");
+                    div.innerHTML = `<div class="card__product">
+                    <div><img class="image__card" src="assets/food_crave_beefpate_2.png" alt=""></div>
+                    <div class="card__shopping purchase-icon">
+                        <ul>
+                            <li class="fa fa-shopping-cart"></li>
+                        </ul>
+                    </div>
+                    <div class="card__product__label">
+                        <p class="product__name__">${product.name}</p>
+                        <p class="product__price__">$${product.price}</p>
+                    </div>
+                    </div>`
+                    
+                    Cart.logContents();
+                    
+
+                    document.querySelector(".query-results").appendChild(div);
+                }
+
+                // Creates new CART object
+                const Carts = new CART(
+                    purchaseIcons=".purchase-icon", // Any clickable object that will trigger the action of adding the product to the cart
+                    productData=".card__product__label", // Class name that contains the product name and price
+                    productNameClass=".product__name__", // Class name of product names
+                    productPriceClass=".product__price__", // Class name of prices
+                    parentAppendProducts=".product__details", // Class name of div where product prices and names will be appended on payments page
+                    totalClassName=".total" // Class name of element showing the total on payments page
+                    );
+
+                Carts.init();
+
+                // Call function that listens for click in shopping cart icon
+                Carts.addItem();
+
+                // Call function that appends divs on "pay" page
+                Carts.buildProductsList();
+
+                // Call function that listens for click in X icon on "pay" page
+                Carts.removeProduct();
+
+                console.log(products);
+            }
+
+            document.querySelector(this.confirm).addEventListener("click", showProducts);
+
+        }
+}
+
 // ----------------------CREATES MODAL OBJECT----------------------
 class MODALWINDOW {
     constructor(modal_, overlay_, closeButton, automatic) {
@@ -389,4 +583,15 @@ modalWindow.init()
 productsData.sort((a, b) => {
     return a.price - b.price;
 });
-console.log(productsData);
+
+const objString = JSON.stringify(productsData)
+
+const recommendationEngine = new RECOMMENDATION_ENGINE(
+    child_element=".recommendation__slider",
+    startOver=".start-over",
+    optionToRight=".recommendation__option",
+    confirmButton=".confirm"
+);
+
+recommendationEngine.init();
+

@@ -40,23 +40,52 @@
             <p>Apply the code on the payment page after adding the items to the cart</p>
         </div>
         <div class="overlay"></div>
-        <!-- MAIN MENU -->
-        <section class="container main_menu">
-            <div>
-                <h2>Latest discounts</h2>
-                <ul>
-                    <li>Dry food</li>
-                    <li>Interactive toys</li>
-                    <li>Leashes</li>
-                    <li>Harnesses</li>
-                    <li>Muzzles</li>
-                    <li>Kennels</li>
-                </ul>
-            <!-- PROMOTED PRODUCTS -->
+        <!-- RECOMMENDATION ENGINE -->
+        <section class="container">
+            <div class="d-flex justify-content-center">
+                <h1>Use our new recommendation engine!</h1>
             </div>
+            <div class="query-results d-flex flex-row flex-wrap justify-content-center">
 
-            <div>
-
+            </div>
+            <div class="recommendation__container">
+                <ul class="recommendation__track">
+                    <li class="recommendation__slider">
+                        <h3>What's your dog's age?</h3>
+                        <div>
+                            <ul class="recommendation__options">
+                                <li class="recommendation__option">Puppy</li>
+                                <li class="recommendation__option">Adult</li>
+                                <li class="recommendation__option">Senior</li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="recommendation__slider">
+                        <h3>What's your dog's size?</h3>
+                        <div>
+                            <ul class="recommendation__options">
+                                <li class="recommendation__option">Small</li>
+                                <li class="recommendation__option">Medium</li>
+                                <li class="recommendation__option">Large</li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="recommendation__slider">
+                        <h3>Any health issues?</h3>
+                        <div>
+                            <ul class="recommendation__options">
+                                <li class="recommendation__option">Recovering from desease</li>
+                                <li class="recommendation__option">Food allergies</li>
+                                <li class="recommendation__option">Overweight</li>
+                            </ul>
+                        <div class="d-flex justify-content-around">
+                            <div class="start-over recommendation__button">Start over</div>
+                            <div class="confirm recommendation__button">Confirm</div>
+                        </div>
+                        
+                        </div>
+                    </li>
+                </ul>
             </div>
         </section>
         <!-- FEATURED PRODUCTS -->
