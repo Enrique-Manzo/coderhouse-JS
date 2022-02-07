@@ -427,17 +427,23 @@ class RECOMMENDATION_ENGINE {
                             (this.conditions.overweight && this.conditions.overweight == product.overweight)
                         ) {
                             products.push(product);
+                        } else if (
+                            this.conditions.recovery == false &&
+                            this.conditions.specialDiet == false &&
+                            this.conditions.overweight == false
+                        ) {
+                            products.push(product);
                         }
                     } 
                 }
 
-                this.container.classList.add("hide");
-
+                this.container.classList.add("d-none");
+                
                 for (const product of products) {
 
                     // This adds a div with the products, I need to find an easier way to add this HTML code
                     const div = document.createElement("div");
-                    div.innerHTML = `<div class="card__product">
+                    div.innerHTML = `<div class="card__product fade-in">
                     <div><img class="image__card" src="assets/food_crave_beefpate_2.png" alt=""></div>
                     <div class="card__shopping purchase-icon">
                         <ul>

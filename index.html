@@ -12,12 +12,13 @@
     <script src="https://use.fontawesome.com/1012e03d82.js"></script>
     <link rel="stylesheet" href="style.css">
     <title>OkkerMart | Welcome!</title>
+    <link rel="shortcut icon" type="image/jpg" href="assets/wolfie.png"/>
 </head>
 <body>
     <nav class="">
         <div class="container d-flex flex-row justify-content-between align-items-center">
             <div>
-                <a href="index.html"><p>OkkerMart</p></a>
+                <a href="index.html" class="d-flex flex-row"><p>OkkerMart</p><img src="assets/wolfie.png" alt=""></a>
             </div>
             <!-- SHOPPING CART ITEMS -->
             <div>
@@ -29,7 +30,6 @@
                 </a>
             </div>
         </div>
-
     </nav>
     <main>
         <!-- MODAL WINDOW -->
@@ -46,7 +46,6 @@
                 <h1>Use our new recommendation engine!</h1>
             </div>
             <div class="query-results d-flex flex-row flex-wrap justify-content-center">
-
             </div>
             <div class="recommendation__container">
                 <ul class="recommendation__track">
@@ -71,6 +70,16 @@
                         </div>
                     </li>
                     <li class="recommendation__slider">
+                        <h3>What food type do you prefer?</h3>
+                        <div>
+                            <ul class="recommendation__options">
+                                <li class="recommendation__option">Dry</li>
+                                <li class="recommendation__option">Wet</li>
+                                <li class="recommendation__option">Raw</li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="recommendation__slider">
                         <h3>Any health issues?</h3>
                         <div>
                             <ul class="recommendation__options">
@@ -81,8 +90,7 @@
                         <div class="d-flex justify-content-around">
                             <div class="start-over recommendation__button">Start over</div>
                             <div class="confirm recommendation__button">Confirm</div>
-                        </div>
-                        
+                        </div>      
                         </div>
                     </li>
                 </ul>
@@ -91,7 +99,7 @@
         <!-- FEATURED PRODUCTS -->
         <section class="main__section">
             <div class="container d-flex flex-column justify-content-center align-items-center">
-                <h1>Featured Products</h1>
+                <h1>⭐Featured Products</h1>
                 <ul class="featured__list">
                     <li>All</li>
                     <li>Barf food</li>
@@ -114,7 +122,6 @@
                         <p class="product__price__">$30.00</p>
                     </div>
                 </div>
-
                 <div class="card__product">
                     <div><img class="image__card" src="assets/food_crave_beefpate_2.png" alt=""></div>
                     <div class="card__shopping purchase-icon">
@@ -127,7 +134,6 @@
                         <p class="product__price__">$45.50</p>
                     </div>
                 </div>
-                
                 <div class="card__product">
                     <div><img class="image__card" src="assets/food_crave_beefpate_2.png" alt=""></div>
                     <div class="card__shopping purchase-icon">
@@ -140,7 +146,6 @@
                         <p class="product__price__">$9.99</p>
                     </div>
                 </div> 
-
                 <div class="card__product">
                     <div><img class="image__card" src="assets/food_crave_beefpate_2.png" alt=""></div>
                     <div class="card__shopping purchase-icon">
@@ -168,13 +173,11 @@
                             <div class="card__brands__name"><p>Old Prince</p></div>
                             <div class="card__brands__see"><p>See products</p></div>
                         </div>
-
                         <div class="card__brands">
                             <div class="card__brands__image"><img src="assets/old-prince-logo.png" alt=""></div>
                             <div class="card__brands__name"><p>Old Prince</p></div>
                             <div class="card__brands__see"><p>See products</p></div>
                         </div>
-
                         <div class="card__brands">
                             <div class="card__brands__image"><img src="assets/old-prince-logo.png" alt=""></div>
                             <div class="card__brands__name"><p>Old Prince</p></div>
@@ -190,13 +193,10 @@
                 <h1>Monthly Discounts - Up to 20%!</h1>
             </div>
             <div class="slider__container container">
-        
                     <button class="arrow-prev">
                         <img src="assets/left-arrow.svg" alt="">
                     </button>
-
                 <ul class="slider__track">
-
                     <li class="card__slider">
                         <div><img src="assets/farmers.png" alt=""></div>
                         <div class="card__slider__description card__product__label">
@@ -206,55 +206,47 @@
                             <div class="purchase-icon">Shop now</div>
                         </div>
                     </li>
-                
-                    <li class="card__slider">
-                        
-                            <div><img src="assets/harrington.png" alt=""></div>
-                            <div class="card__slider__description card__product__label">
-                                <h3 class="product__name__">SECOND</h3>
-                                <p>Natural food for older dogs</p>
-                                <p class="product__price__">$35.60</p>
-                                <div class="purchase-icon">Shop now</div>
-                            </div>
-                       
+                    <li class="card__slider"> 
+                        <div><img src="assets/harrington.png" alt=""></div>
+                        <div class="card__slider__description card__product__label">
+                            <h3 class="product__name__">SECOND</h3>
+                            <p>Natural food for older dogs</p>
+                            <p class="product__price__">$35.60</p>
+                            <div class="purchase-icon">Shop now</div>
+                        </div>
                     </li>
-                    
                     <li class="card__slider">
-                        
-                            <div><img src="assets/farmers.png" alt=""></div>
-                            <div class="card__slider__description card__product__label">
-                                <h3 class="product__name__">THIRD</h3>
-                                <p>100% Natural Products</p>
-                                <p class="product__price__">$25.50</p>
-                                <div class="purchase-icon">Shop now</div>
-                            </div>
-                        
-                    </li>
-                    
+                        <div><img src="assets/farmers.png" alt=""></div>
+                        <div class="card__slider__description card__product__label">
+                            <h3 class="product__name__">THIRD</h3>
+                            <p>100% Natural Products</p>
+                            <p class="product__price__">$25.50</p>
+                            <div class="purchase-icon">Shop now</div>
+                        </div>    
+                    </li> 
                     <li class="card__slider">
-                        
-                            <div><img src="assets/harrington.png" alt=""></div>
-                            <div class="card__slider__description card__product__label">
-                                <h3 class="product__name__">FORTH</h3>
-                                <p>Natural food for older dogs</p>
-                                <p class="product__price__">$35.50</p>
-                                <div class="purchase-icon">Shop now</div>
-                            </div>
-                       
+                        <div><img src="assets/harrington.png" alt=""></div>
+                        <div class="card__slider__description card__product__label">
+                            <h3 class="product__name__">FORTH</h3>
+                            <p>Natural food for older dogs</p>
+                            <p class="product__price__">$35.50</p>
+                            <div class="purchase-icon">Shop now</div>
+                        </div>
                     </li>
-
                 </ul>
                     <button class="arrow-next">
                         <img src="assets/left-arrow.svg" alt="">
                     </button>
-                
             </div>
         </section>
     </main>
     <footer class="container">
         <div class="d-flex justify-content-lg-around footer__info">
             <div>
-                <p class="logo">OkkerMart</p>
+                <div class="d-flex flex-row">
+                    <p class="logo">OkkerMart</p>
+                    <img class="logo-image" src="assets/wolfie.png" alt="">
+                </div>
                 <ul>
                     <li>Address: 60-49 Utca 11378 Budapest</li>
                     <li>Phone: +36 11.188.888</li>

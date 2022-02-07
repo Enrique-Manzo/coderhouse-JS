@@ -78,6 +78,12 @@ nav p {
     color: white;
 }
 
+nav img {
+    width: 45px;
+    height: 45px;
+    margin-left: 10px;
+}
+
 #shopping_cart_nav {
     font-size: 1.5rem !important;
     padding-right: 10px;
@@ -314,6 +320,7 @@ ul li {
     display: flex;
     flex-direction: row;
     overflow: visible;
+    background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='20' ry='20' stroke='%23333' stroke-width='2' stroke-dasharray='20%2c 15%2c 7%2c 9' stroke-dashoffset='77' stroke-linecap='round'/%3e%3c/svg%3e");
 }
 
 .slider__track {
@@ -330,7 +337,6 @@ ul li {
     position: absolute;
     display: grid;
     grid-template-columns: 60% 40%;
-    background-color: #F5B041;
     width: 100%;
     height: 100%;
     align-items: center;
@@ -359,10 +365,10 @@ ul li {
     position: relative;
     display: flex;
     flex-direction: row;
-    overflow: visible;
-    height: 350px;
     overflow: hidden;
-    transition: 1s;
+    height: 350px;
+    background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='20' ry='20' stroke='%23333' stroke-width='2' stroke-dasharray='17%2c 11%2c 22%2c 15' stroke-dashoffset='11' stroke-linecap='butt'/%3e%3c/svg%3e");
+border-radius: 20px;
 }
 
 .recommendation__track {
@@ -372,6 +378,7 @@ ul li {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
+
 }
 
 .recommendation__slider {
@@ -428,9 +435,14 @@ ul li {
     cursor: pointer;
 }
 
-.hide {
-    display: none;
-    transition: 0.5s;
+@keyframes fade-in-animation {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+}
+
+.fade-in {
+    animation-name: fade-in-animation;
+    animation-duration: 1.5s;
 }
 
 /* PAYMENT PAGE */
@@ -595,6 +607,12 @@ footer {
 .logo {
     font-family: "Lobster", sans-serif;
     font-size: 2rem;
+}
+
+.logo-image {
+    width: 45px;
+    height: 45px;
+    margin-left: 10px;
 }
 
 form input {
