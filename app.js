@@ -113,7 +113,7 @@ class CART {
 
                 // This adds a div with the products, I need to find an easier way to add this HTML code
                 const div = document.createElement("div");
-                div.innerHTML = `<ul class="d-flex flex-row product__row product__text"> \
+                div.innerHTML = `<ul class="product__row product__text"> \
                 <li class="product__name mg-rt-50">${productNameHTML}</li> \
                 <li class="product__price">$${productPriceHTML}</li><i class="fa fa-times"></i>\
                 </ul>`
@@ -127,7 +127,7 @@ class CART {
 
             // Update price
             if (totalCounter > 0) {
-                this.totalElement.textContent = parseFloat(totalCounter).toFixed(2);
+                this.totalElement.textContent = `$${parseFloat(totalCounter).toFixed(2)}`;
             }
 
         }
@@ -418,6 +418,7 @@ class RECOMMENDATION_ENGINE {
 
                 const products = []
                 
+                // This block finds the object that match the criteria selected by the user
                 for (const product of productsData) {
                     if (product.age.includes(this.conditions.age) && product.size.includes(this.conditions.size)) {
                         if (
@@ -434,7 +435,6 @@ class RECOMMENDATION_ENGINE {
 
                 for (const product of products) {
 
-                
                     // This adds a div with the products, I need to find an easier way to add this HTML code
                     const div = document.createElement("div");
                     div.innerHTML = `<div class="card__product">
@@ -450,9 +450,7 @@ class RECOMMENDATION_ENGINE {
                     </div>
                     </div>`
                     
-                    Cart.logContents();
-                    
-
+                    // We append the results to this empty div
                     document.querySelector(".query-results").appendChild(div);
                 }
 
@@ -467,17 +465,9 @@ class RECOMMENDATION_ENGINE {
                     );
 
                 Carts.init();
-
-                // Call function that listens for click in shopping cart icon
                 Carts.addItem();
-
-                // Call function that appends divs on "pay" page
                 Carts.buildProductsList();
-
-                // Call function that listens for click in X icon on "pay" page
                 Carts.removeProduct();
-
-                console.log(products);
             }
 
             document.querySelector(this.confirm).addEventListener("click", showProducts);
@@ -594,4 +584,3 @@ const recommendationEngine = new RECOMMENDATION_ENGINE(
 );
 
 recommendationEngine.init();
-

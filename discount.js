@@ -32,7 +32,7 @@ discountButton.addEventListener("click", () => {
 
             // We create the discounted price next to the old price
             const li = document.createElement("li");
-            li.innerHTML = `${discountedPrice}`;
+            li.innerHTML = `$${discountedPrice}`;
             productText[i].appendChild(li);
 
             // We strikethrough the old price
@@ -47,6 +47,6 @@ discountButton.addEventListener("click", () => {
 
         codeNotApplied = false;
 
-        total.textContent = totalCounter.toFixed(2);
+        total.textContent = `$${totalCounter.toFixed(2)}`;
     }
 })
