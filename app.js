@@ -115,7 +115,7 @@ class CART {
                 const div = document.createElement("div");
                 div.innerHTML = `<ul class="product__row product__text"> \
                 <li class="product__name mg-rt-50">${productNameHTML}</li> \
-                <li class="product__price">$${productPriceHTML}</li><i class="fa fa-times"></i>\
+                <li class="product__price">$${productPriceHTML}</li><i class="fa fa-trash"></i>\
                 </ul>`
 
                 // Inserts HTML under the productDetails element defined in the constructor
@@ -140,7 +140,7 @@ class CART {
         const productsCashOuts = document.querySelectorAll(".product__row");
 
         // Array with all the X buttons on the payment page
-        const deleteIcon = document.querySelectorAll(".fa-times");
+        const deleteIcon = document.querySelectorAll(".fa-trash");
 
 
         // Loops the number of items in the cart
