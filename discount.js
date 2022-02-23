@@ -50,3 +50,83 @@ discountButton.addEventListener("click", () => {
         total.textContent = `$${totalCounter.toFixed(2)}`;
     }
 })
+
+$(() => {
+
+    $("#pay-now").click(
+        () => {
+            const div = document.createElement("div");
+            div.innerHTML = `<div class="payment-overlay"></div>`;
+            document.querySelector("body").appendChild(div);
+
+            $(".credit-items-location").removeClass("d-none");
+        }
+    )
+
+    $(document).keyup( (e)=> {
+        if (e.key == "Escape") {
+            $(".payment-overlay").remove();
+            $(".credit-items-location").addClass("d-none");
+        }
+    })
+
+    
+    $("#card-number-0").on("input", ()=> {
+        $("#credit-card__number__0").text($("#card-number-0").val());
+      
+        if ($("#card-number-0").val().length == 4) {
+            $("#card-number-1").focus()
+        }
+    })
+
+    $("#card-number-1").on("input", ()=> {
+        $("#credit-card__number__1").text($("#card-number-1").val());
+        if ($("#card-number-1").val().length == 4) {
+            $("#card-number-2").focus()
+        }
+    })
+
+    $("#card-number-2").on("input", ()=> {
+        $("#credit-card__number__2").text($("#card-number-2").val());
+        if ($("#card-number-2").val().length == 4) {
+            $("#card-number-3").focus()
+        }
+    })
+
+    $("#card-number-3").on("input", ()=> {
+        $("#credit-card__number__3").text($("#card-number-3").val());
+    })
+
+    $("#card-holder-name").on("input", ()=> {
+        $("#credit-card__holder-name").text($("#card-holder-name").val());
+    })
+
+    $("#credit-form-month").on("input", ()=> {
+        $("#credit-card__expiration-date").text($("#credit-form-month").val() + "/" + $("#credit-form-year").val());
+        if ($("#credit-form-month").val().length == 2) {
+            $("#credit-form-year").focus()
+        }
+    })
+
+    $("#credit-form-year").on("input", ()=> {
+        $("#credit-card__expiration-date").text($("#credit-form-month").val() + "/" + $("#credit-form-year").val());
+    }) 
+
+    $("#credit-submit").on("click", ()=> {
+        const PayModal = new MODALWINDOW(
+            modal_=".modal__internal",
+            overlay_=".payment-overlay",
+            closeButton=".close-modal",
+            automatic=true
+        );
+    
+        PayModal.init();
+        
+        $(".modal__internal").removeClass("d-none");
+
+        localStorage.setItem(Cart.KEY, [])
+    })
+    
+
+})
+

@@ -491,27 +491,30 @@ class MODALWINDOW {
     }
 
     init () {
-        if (this.automatic == true) {
-
-            this.closeButton.addEventListener("click", () => {
-                this.modal.classList.add("d-none");
-                this.overlay.classList.add("d-none");
-            });
-
-            
-            this.overlay.addEventListener("click", () => {
-                this.modal.classList.add("d-none");
-                this.overlay.classList.add("d-none");
-            });
-
-            document.addEventListener("keydown", (e) => {
-                if (e["key"] == "Escape") {
-                    this.modal.classList.add("d-none");
-                    this.overlay.classList.add("d-none");
-                };
-            });
-
+        if (this.automatic == false) {
+            this.modal.classList.add("d-none");
+            this.overlay.classList.add("d-none");                        
         }
+
+        this.closeButton.addEventListener("click", () => {
+            this.modal.classList.add("d-none");
+            this.overlay.classList.add("d-none");
+        });
+
+        
+        this.overlay.addEventListener("click", () => {
+            this.modal.classList.add("d-none");
+            this.overlay.classList.add("d-none");
+        });
+
+        document.addEventListener("keydown", (e) => {
+            if (e["key"] == "Escape") {
+                this.modal.classList.add("d-none");
+                this.overlay.classList.add("d-none");
+            };
+        });
+
+        
     }
 
 };

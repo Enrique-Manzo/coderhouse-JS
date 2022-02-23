@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;700&family=Lobster&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;700&family=Lobster&family=Roboto+Mono:wght@300;400&display=swap');
 body {
     background-color: #ebebeb;
 }
@@ -582,6 +582,129 @@ border-radius: 20px;
     width: 25px;
 }
 
+/* PAYMENT OVERLAY */
+
+.payment-overlay {
+    position: absolute;
+    background: linear-gradient(50deg, #f3c680, hsla(179,54%,76%,1));
+    width: 100%;
+    height: 200vh;
+    z-index: 5;
+    top: 0;
+    bottom: 0;
+    opacity: 0.8;
+}
+
+.credit-items-location {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.credit-items {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    z-index: 10;
+    margin-top: 100px;
+}
+  
+.credit-card {
+    height: 250px;
+    width: 450px;
+    background: rgb(68,118,207);
+    background: linear-gradient(90deg, rgba(68,118,207,1) 0%, rgba(67,8,116,1) 71%);
+    border-radius: 15px;
+    display: grid;
+    grid-template-rows: 4fr 1fr;
+    justify-items: center;
+    padding: 10px 20px;
+    z-index: 2;
+}
+
+.credit-card__number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.credit-card__number div {
+    font-size: 35px;
+    font-family: "Roboto Mono", monospace;
+    color: white;
+    margin-right: 15px;
+}
+  
+.credit-card__holder {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.credit-card__holder div p {
+    margin: 0;
+    padding: 0;
+    font-family: "Roboto Mono", monospace;
+    color: white;
+}
+  
+  
+.credit-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: white;
+    width: 550px;
+    padding: 100px 10px 50px 10px;
+    margin-top: -50px;
+    border-radius: 20px;
+}
+
+.credit-form__input {
+    width: 50px;
+    height: 100%;
+    padding: 0;
+    border: 1px solid hsla(0, 0, 0, 0.3);
+    box-shadow: inset 0 1px 4px hsla(0, 0, 0, 0.2);
+    z-index: 6;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.credit-form input[type="number"] {
+    font-size: 20px;
+    -moz-appearance: textfield;
+}
+
+.credit-form__items {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.person-data {
+    display: flex;
+    flex-direction: column;
+}
+
+.person-data input {
+    width: 50px;
+}
+
+#card-holder-name {
+    width: 150px;
+}
+
 /* TEXT EFFECTS */
 
 .strike {
@@ -615,7 +738,7 @@ footer {
     margin-left: 10px;
 }
 
-form input {
+footer form input {
     height: 2.5rem;
     width: 70%;
     border: 1px solid #ededed;

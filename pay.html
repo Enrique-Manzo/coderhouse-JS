@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="style.css">
     <title>OkkerMart | Your Shopping Cart</title>
     <link rel="shortcut icon" type="image/jpg" href="assets/wolfie.png"/>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 </head>
 <body>
     <nav class="">
@@ -56,6 +58,7 @@
                         <li class="total">Please add items to the cart to calculate the total.</li>
                     </ul>
                 </div>
+                <button class="subscribe" id="pay-now">Pay Now</button>
             </div>
         </section>
     </main>
@@ -90,6 +93,67 @@
             </div>
         </div>
     </footer>
+    <div class="credit-items-location d-none">
+        <div class="credit-items">
+            <div class="credit-card">
+            <div class="credit-card__number">
+                <div id="credit-card__number__0"></div>
+                <div id="credit-card__number__1"></div>
+                <div id="credit-card__number__2"></div>
+                <div id="credit-card__number__3"></div>
+            </div>
+            <div class="credit-card__holder">
+                <div class="credit-card__holder-name">
+                <div>
+                    <p>Holder's Name</p>
+                </div>
+                <div>
+                    <p id="credit-card__holder-name"></p>
+                </div>
+                </div>
+                <div class="credit-card__expiration-date">
+                <div>
+                    <p>Expiration date</p>
+                </div>
+                <div>
+                    <p id="credit-card__expiration-date"></p>
+                </div>
+                </div>
+            </div>
+            </div>
+            <div class="credit-form">
+            <form class="credit-form__items">
+                <div>
+                    <label for="card-number">Card Number</label>
+                    <div>
+                        <input type="num" id="card-number-0" class="credit-form__input" maxlength="4" />
+                        <input type="num" id="card-number-1" class="credit-form__input" maxlength="4" />
+                        <input type="num" id="card-number-2" class="credit-form__input" maxlength="4" />
+                        <input type="num" id="card-number-3" class="credit-form__input" maxlength="4" />
+                    </div>
+                </div>
+                <div class="person-data">
+                    <label for="">Holder's name</label>
+                    <input type="text" name="" id="card-holder-name">
+                </div>
+                <div class="person-data">
+                    <label for="">Expiration date</label>
+                    <div>
+                        <input type="num" name="" id="credit-form-month">
+                        <input type="num" name="" id="credit-form-year">
+                    </div>
+                </div>
+            </form>
+            <button class="subscribe" id="credit-submit">Submit</button>
+            </div>
+        </div>
+    </div>
+    <div class="modal__internal d-none">
+        <a href="index.html"><button class="close-modal">&times;</button></a>
+        <h1>Payment Sucessful</h1>
+        <p>Your payment has been processed correctly</p>
+        <p>Check your email inbox for product delivery updates</p>
+    </div>
 
     <script src="app.js"></script>
     <script src="discount.js"></script>
