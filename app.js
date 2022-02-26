@@ -1,3 +1,4 @@
+$(() => {
 // ----------------------GLOBAL VARIABLES----------------------
 const navBarCounter = document.querySelector("#nav__counter");
 let productList = document.querySelector(".product__list");
@@ -437,29 +438,39 @@ class RECOMMENDATION_ENGINE {
                     } 
                 }
 
-                this.container.classList.add("d-none");
-                
-                for (const product of products) {
+                const addSelectedProducts = () => {
 
-                    // This adds a div with the products, I need to find an easier way to add this HTML code
-                    const div = document.createElement("div");
-                    div.innerHTML = `<div class="card__product fade-in">
-                    <div><img class="image__card" src="assets/food_crave_beefpate_2.png" alt=""></div>
-                    <div class="card__shopping purchase-icon">
-                        <ul>
-                            <li class="fa fa-shopping-cart"></li>
-                        </ul>
-                    </div>
-                    <div class="card__product__label">
-                        <p class="product__name__">${product.name}</p>
-                        <p class="product__price__">$${product.price}</p>
-                    </div>
-                    </div>`
+                    $(".query-results").hide()
+
+                    for (const product of products) {
+
+                        // This adds a div with the products, I need to find an easier way to add this HTML code
+                        const div = document.createElement("div");
+                        div.innerHTML = `<div class="card__product card__result">
+                                            <div><img class="image__card" src="assets/food_crave_beefpate_2.png" alt=""></div>
+                                            <div class="card__shopping purchase-icon">
+                                            <ul>
+                                                <li class="fa fa-shopping-cart"></li>
+                                            </ul>
+                                            </div>
+                                            <div class="card__product__label">
+                                                <p class="product__name__">${product.name}</p>
+                                                <p class="product__price__">$${product.price}</p>
+                                            </div>
+                                        </div>`
+                        
+                        // We append the results to this empty div
+                        document.querySelector(".query-results").appendChild(div);
+                        
                     
-                    // We append the results to this empty div
-                    document.querySelector(".query-results").appendChild(div);
+                    }
+                    $(".query-results").fadeIn(500)
                 }
 
+                $(this.container).fadeOut(500, addSelectedProducts);
+                
+                
+                
                 // Creates new CART object
                 const Carts = new CART(
                     purchaseIcons=".purchase-icon", // Any clickable object that will trigger the action of adding the product to the cart
@@ -593,3 +604,4 @@ const recommendationEngine = new RECOMMENDATION_ENGINE(
 );
 
 recommendationEngine.init();
+})
