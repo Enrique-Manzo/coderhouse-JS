@@ -8,7 +8,8 @@ const productsData = [
         "recovery": false,
         "special diet": false,
         "overweight": false,
-        "package-weight": [3, 7.5, 15]
+        "package-weight": [3, 7.5, 15],
+        "image": "oldprince-lambmeal-allbreeds.png"
         },
     {
         "name": "Lamb Meal - Adult Dog Small Breed",
@@ -19,7 +20,8 @@ const productsData = [
         "recovery": false,
         "special diet": false,
         "overweight": false,
-        "package-weight": [3, 7.5, 15]
+        "package-weight": [3, 7.5, 15],
+        "image": "oldprince-lambmeal-adultsmall.png"
     },
     {
         "name": "Lamb Meal - Adult Dog Medium & Large Breeds",
@@ -30,7 +32,8 @@ const productsData = [
         "recovery": false,
         "special diet": false,
         "overweight": false,
-        "package-weight": [3, 7.5, 15]
+        "package-weight": [3, 7.5, 15],
+        "image": "oldprince-lambmeal-adultmedium.png"
     },
     {   
         "name": "Swine Meal - Adult Dog All Breeds",
@@ -41,7 +44,8 @@ const productsData = [
         "recovery": false,
         "special diet": false,
         "overweight": false,
-        "package-weight": [3, 7.5, 15]
+        "package-weight": [3, 7.5, 15],
+        "image": "oldprince-swine-adultall.png"
     },
     {
         "name": "Equilibrium A",
@@ -52,7 +56,8 @@ const productsData = [
         "recovery": false,
         "special diet": false,
         "overweight": false,
-        "package-weight": [3, 7.5, 15]
+        "package-weight": [3, 7.5, 15],
+        "image": "oldprince-equilibriuma.png"
     },
     {
         "name": "Equilibrium B",
@@ -63,7 +68,8 @@ const productsData = [
         "recovery": false,
         "special diet": false,
         "overweight": false,
-        "package-weight": [3, 7.5, 15]
+        "package-weight": [3, 7.5, 15],
+        "image": "oldprince-equilibriumb.png"
     },
     {
         "name": "Equilibrium C",
@@ -74,7 +80,8 @@ const productsData = [
         "recovery": false,
         "special diet": false,
         "overweight": false,
-        "package-weight": [3, 7.5, 15]
+        "package-weight": [3, 7.5, 15],
+        "image": "oldprince-equilibriumc.png"
     },
     {
         "name": "Equilibrium D",
@@ -85,7 +92,8 @@ const productsData = [
         "recovery": false,
         "special diet": false,
         "overweight": false,
-        "package-weight": [3, 7.5, 15]
+        "package-weight": [3, 7.5, 15],
+        "image": "oldprince-equilibriumd.png"
     },
     {
         "name": "Special Recipe",
@@ -96,7 +104,8 @@ const productsData = [
         "recovery": false,
         "special diet": false,
         "overweight": true,
-        "package-weight": [3, 15]
+        "package-weight": [3, 15],
+        "image": "oldprince-weight.png"
     },
     {
         "name": "Salmon Formula Wet",
@@ -107,7 +116,8 @@ const productsData = [
         "recovery": false,
         "special diet": true,
         "overweight": true,
-        "package-weight": [0.370]
+        "package-weight": [0.370],
+        "image": "hills-salmonwet.jpg"
     },
     {
         "name": "Metabolic Canine Treats",
@@ -118,7 +128,8 @@ const productsData = [
         "recovery": false,
         "special diet": false,
         "overweight": true,
-        "package-weight": [3, 15]
+        "package-weight": [3, 15],
+        "image": "hills-metabolic-treats.jpg"
     },
     {
         "name": "Distinction Canine Beef Recipe",
@@ -129,7 +140,8 @@ const productsData = [
         "recovery": false,
         "special diet": false,
         "overweight": true,
-        "package-weight": [3, 15]
+        "package-weight": [3, 15],
+        "image": "natureslogic-canine-beef.png"
     },
     {
         "name": "Canine Rabbit Feast",
@@ -140,7 +152,8 @@ const productsData = [
         "recovery": true,
         "special diet": true,
         "overweight": false,
-        "package-weight": [7.5, 15]
+        "package-weight": [7.5, 15],
+        "image": "natureslogic-rabbit-feast.png"
     },
     {
         "name": "Canine Venison Meal Feast",
@@ -151,7 +164,8 @@ const productsData = [
         "recovery": false,
         "special diet": true,
         "overweight": false,
-        "package-weight": [3, 15]
+        "package-weight": [3, 15],
+        "image": "natureslogic-venison.png"
     },
     {
         "name": "Canine Duck&Salmon Meal Feast",
@@ -162,6 +176,7 @@ const productsData = [
         "recovery": true,
         "special diet": true,
         "overweight": true,
-        "package-weight": [3, 15]
+        "package-weight": [3, 15],
+        "image": "natureslogic-duck.png"
     },
 ]

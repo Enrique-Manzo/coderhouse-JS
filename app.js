@@ -383,8 +383,6 @@ class RECOMMENDATION_ENGINE {
                             this.conditions.overweight = true;
                             break;
                     }
-
-                    console.log(this.conditions);
                     
                 })
             }
@@ -444,11 +442,13 @@ class RECOMMENDATION_ENGINE {
 
                     for (const product of products) {
 
+                       const productId = products.findIndex((element) => element == product);
+
                         // This adds a div with the products, I need to find an easier way to add this HTML code
                         const div = document.createElement("div");
                         div.innerHTML = `<div class="card__product card__result">
-                                            <div><img class="image__card" src="assets/food_crave_beefpate_2.png" alt=""></div>
-                                            <div class="card__shopping purchase-icon">
+                                            <div><img class="image__card" src=assets/${product.image} alt=""></div>
+                                            <div id="result-product-${productId}" class="card__shopping purchase-icon">
                                             <ul>
                                                 <li class="fa fa-shopping-cart"></li>
                                             </ul>
@@ -462,29 +462,29 @@ class RECOMMENDATION_ENGINE {
                         // We append the results to this empty div
                         document.querySelector(".query-results").appendChild(div);
                         
+                        $(`#result-product-${productId}`).click( () => {
+                            const ProductName = product.name;
+                            const ProductPrice = product.price;
+    
+                            Cart.contents.push({
+                                "productName": ProductName,
+                                "productPrice": ProductPrice
+                            });
+    
+                            Cart.dumpItems();
+
+                            navBarCounter.classList.remove("d-none");
+                            navBarCounter.textContent = Cart.contents.length;
+                            
+                        })
                     
                     }
                     $(".query-results").fadeIn(500)
+                    
                 }
 
                 $(this.container).fadeOut(500, addSelectedProducts);
                 
-                
-                
-                // Creates new CART object
-                const Carts = new CART(
-                    purchaseIcons=".purchase-icon", // Any clickable object that will trigger the action of adding the product to the cart
-                    productData=".card__product__label", // Class name that contains the product name and price
-                    productNameClass=".product__name__", // Class name of product names
-                    productPriceClass=".product__price__", // Class name of prices
-                    parentAppendProducts=".product__details", // Class name of div where product prices and names will be appended on payments page
-                    totalClassName=".total" // Class name of element showing the total on payments page
-                    );
-
-                Carts.init();
-                Carts.addItem();
-                Carts.buildProductsList();
-                Carts.removeProduct();
             }
 
             document.querySelector(this.confirm).addEventListener("click", showProducts);
