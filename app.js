@@ -547,6 +547,27 @@ class PRODUCT {
     }
 }
 
+// ----------------------DEFINES ASYNC FUNCTION TO RETRIEVE DOG BREED DATA----------------------
+
+// Asyncronous function to use the thedogapi to retrieve breed information, returns json
+async function dogAPIcall() {
+    
+    const result = await $.ajax({
+        url: `https://api.thedogapi.com/v1/breeds/search?q=${$("#breed-search").val()}`,
+        headers: {
+            'x-api-key': 'b297c9f6-0abc-418e-a688-cefcde5027ed',
+        },
+        type: "GET",
+        dataType: "json",
+        data: {
+        },
+    });
+
+    return result;
+}
+
+// ******************** END OF DEFINITIONS - OBJECT CREATIONS AND METHOD CALLING ********************
+
 // Creates new CART object
 const Cart = new CART(
     purchaseIcons=".purchase-icon", // Any clickable object that will trigger the action of adding the product to the cart
@@ -604,4 +625,35 @@ const recommendationEngine = new RECOMMENDATION_ENGINE(
 );
 
 recommendationEngine.init();
+
+
+
+// Listens for click on dog breed search button and inserts data as defined on line 553 async function
+$("#breed-submit").click( ()=> {
+    // Fades out previous result, if any
+    $("#breed-result").fadeOut();
+
+    // Creates a promise to retrieve the API response.
+    dogAPIcall().then((result)=> { 
+    
+    // HTML element with the requested data
+    const div = document.createElement("div");
+                div.innerHTML = `<div id="breed-result">
+                                    <h2>${result[0].name}</h2>
+                                    <p>Your dog's ideal height should be ${result[0].height.metric}cm, and it should weight between ${result[0].weight.metric}kg.</p>
+                                    <p>${result[0].name}s' behaviour is ${result[0].temperament.toLowerCase()}.</p>
+                                    <p>Consider your dog's age when purchasing food. ${result[0].name}s live for about ${result[0].life_span}</p>
+                                </div>`;
+
+    // Data appended inside corresponding container
+    $("#breed-container").append(div);
+
+    // NOTE TO SELF: this function doesn't contain a catch block to account for
+    // cases where no dog breed is found. The API will return an empty list. Either use
+    // "catch" or result[0].length == 0.
+
+    });
+  
+})
+
 })

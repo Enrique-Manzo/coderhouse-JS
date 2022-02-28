@@ -445,6 +445,18 @@ border-radius: 20px;
     animation-duration: 1.5s;
 }
 
+/* BREED FORM */
+
+#breed-form {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+#breed-container {
+    margin-top: 20px;
+}
+
 /* PAYMENT PAGE */
 
 .discount input {
@@ -754,6 +766,7 @@ footer form input {
     font-family: sans-serif;
     border: 1px solid #A9DFBF;
     background-color: #229954;
+    cursor: pointer;
 }
 
 .footer__social-widgets {
