@@ -631,14 +631,14 @@ recommendationEngine.init();
 // Listens for click on dog breed search button and inserts data as defined on line 553 async function
 $("#breed-submit").click( ()=> {
     // Fades out previous result, if any
-    $("#breed-result").fadeOut();
+    $(".breed-result").fadeOut();
 
     // Creates a promise to retrieve the API response.
     dogAPIcall().then((result)=> { 
     
     // HTML element with the requested data
     const div = document.createElement("div");
-                div.innerHTML = `<div id="breed-result">
+                div.innerHTML = `<div class="breed-result">
                                     <h2>${result[0].name}</h2>
                                     <p>Your dog's ideal height should be ${result[0].height.metric}cm, and it should weight between ${result[0].weight.metric}kg.</p>
                                     <p>${result[0].name}s' behaviour is ${result[0].temperament.toLowerCase()}.</p>
