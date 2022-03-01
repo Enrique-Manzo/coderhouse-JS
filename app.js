@@ -1,4 +1,4 @@
-$(() => {
+
 // ----------------------GLOBAL VARIABLES----------------------
 const navBarCounter = document.querySelector("#nav__counter");
 let productList = document.querySelector(".product__list");
@@ -59,6 +59,9 @@ class CART {
             // Makes counter visible, increments product counter in object, updates counter, saves counter in memory
             const logItem = () => {
 
+                // Updates cart contents
+                this.init();
+
                 // Writes the number of items in the cart
                 let numberOfItems = this.contents.length + 1
                 navBarCounter.textContent = numberOfItems;
@@ -100,17 +103,17 @@ class CART {
         if (pageName == "pay.html") {
 
             // We initialize our cart
-            Cart.init();
+            this.init();
 
             // Variable used to store the final price
             let totalCounter = 0;        
 
             // Iterates through cart contents to build the list
-            for (let i=0; i < Cart.contents.length; i++) {
+            for (let i=0; i < this.contents.length; i++) {
                 
                 // Gets data from the cart contents JSON
-                const productNameHTML = Cart.contents[i]["productName"];
-                const productPriceHTML = Cart.contents[i]["productPrice"]
+                const productNameHTML = this.contents[i]["productName"];
+                const productPriceHTML = this.contents[i]["productPrice"]
 
                 // This adds a div with the products, I need to find an easier way to add this HTML code
                 const div = document.createElement("div");
@@ -145,7 +148,7 @@ class CART {
 
 
         // Loops the number of items in the cart
-        for (let i=0; i < Cart.contents.length; i++) {
+        for (let i=0; i < this.contents.length; i++) {
             
             // Function definition for the X button event listener below
             const deleteItem = () => {
@@ -157,7 +160,7 @@ class CART {
                 const currentElements = document.querySelectorAll(".product__row");
 
                 // We empty our cart, we'll later fill it in with the elements above
-                Cart.contents = [];
+                this.contents = [];
 
                 // Array that stores discounted prices <li class="discounted_price"> if any
                 const discountedPrices = document.querySelectorAll(".discounted__price");
@@ -171,13 +174,18 @@ class CART {
                     // Loop through the number of items in the current HTML
                     for (let a=0; a < currentElements.length; a++) {
 
-                        // For each item in the currentElements array, extract text and create new array
+                        // For each item in the currentElements array, extract text and create new array.
+                        // These are non-discounted prices
                         const elementPropertiesList = currentElements[a].textContent.split("$")
+
+                        // For each item in the discountedPrices array -if any-, extract text and create new array.
+                        // These are discounted prices. If there are items, a discount has been applied.
+                        const discountedPrice = discountedPrices[a].textContent.split("$")
 
                         // Create new object from the name and price items on the array above
                         // and append it to the CART.contents array
                         // The function will append as many objects as items in currentElements
-                        Cart.contents.push({
+                        this.contents.push({
                             // There are blank spaces that we need to trim
                             productName: elementPropertiesList[0].trim(),
                             productPrice: parseFloat(elementPropertiesList[1].trim()),
@@ -186,7 +194,8 @@ class CART {
                         // Flow control to decide which price to use to compute total
                         // If there are items in discountedPrices it'll use the discounted prices
                         if (discountedPrices.length > 0) {
-                            totalCounter += parseFloat(discountedPrices[a].textContent)
+                            totalCounter += parseFloat(discountedPrice[1].trim())
+                            console.log(discountedPrice[1].trim())
                         } else {
                             totalCounter += parseFloat(elementPropertiesList[1].trim());
                         }
@@ -212,7 +221,7 @@ class CART {
 
 
                 // Save new CART.contents as string in browser memory
-                Cart.dumpItems();
+                this.dumpItems();
 
                 // End of daleteIcon event listener function
                 
@@ -225,6 +234,44 @@ class CART {
 
 }
 
+// ----------------------CREATES MODAL OBJECT----------------------
+class MODALWINDOW {
+    constructor(modal_, overlay_, closeButton, automatic) {
+        this.modal = document.querySelector(modal_);
+        this.overlay = document.querySelector(overlay_);
+        this.closeButton = document.querySelector(closeButton);
+        this.automatic = automatic;
+    }
+
+    init () {
+        if (this.automatic == false) {
+            this.modal.classList.add("d-none");
+            this.overlay.classList.add("d-none");                        
+        }
+
+        this.closeButton.addEventListener("click", () => {
+            this.modal.classList.add("d-none");
+            this.overlay.classList.add("d-none");
+        });
+
+        
+        this.overlay.addEventListener("click", () => {
+            this.modal.classList.add("d-none");
+            this.overlay.classList.add("d-none");
+        });
+
+        document.addEventListener("keydown", (e) => {
+            if (e["key"] == "Escape") {
+                this.modal.classList.add("d-none");
+                this.overlay.classList.add("d-none");
+            };
+        });
+    }
+};
+
+// ++++++++++++++++++++++START OF JQUERY READY FUNCTION++++++++++++++++++++++
+
+$(() => {
 // ----------------------CREATES SLIDER OBJECT----------------------
 class SLIDER {
     constructor (child_element, button_left, button_right) {
@@ -435,13 +482,17 @@ class RECOMMENDATION_ENGINE {
                         }
                     } 
                 }
-
+                // Function that will be trigged after JQuery fades out the container $(this.container).fadeOut(500, addSelectedProducts);
                 const addSelectedProducts = () => {
 
+                    // Hides query results, this is required to use the fadeIn() later
                     $(".query-results").hide()
 
+                    // Loop through the productData objects list
                     for (const product of products) {
 
+                        // The product ID will be the object's list index.
+                        // We need an ID so that later JQuery can listen for clicks $(`#result-product-${productId}`).click()
                        const productId = products.findIndex((element) => element == product);
 
                         // This adds a div with the products, I need to find an easier way to add this HTML code
@@ -462,76 +513,122 @@ class RECOMMENDATION_ENGINE {
                         // We append the results to this empty div
                         document.querySelector(".query-results").appendChild(div);
                         
+                        // JQuery listens for click on each individual item. If a class is used, JQuery returns a list
                         $(`#result-product-${productId}`).click( () => {
                             const ProductName = product.name;
                             const ProductPrice = product.price;
-    
+                            
+                            // We update the cart so that we don't overwrite anything
+                            Cart.init();
+                            
                             Cart.contents.push({
                                 "productName": ProductName,
                                 "productPrice": ProductPrice
                             });
-    
+                            
+                            // Write cart contents to local storage
                             Cart.dumpItems();
 
+                            // Update navbar counter
                             navBarCounter.classList.remove("d-none");
                             navBarCounter.textContent = Cart.contents.length;
-                            
                         })
-                    
                     }
+                    // Fades in the query results finally
                     $(".query-results").fadeIn(500)
-                    
                 }
-
+                // Triggers addSelectedProducts
                 $(this.container).fadeOut(500, addSelectedProducts);
-                
             }
-
+            // Listens for confirmation click and activate showProducts() and addSelectedProducts()
             document.querySelector(this.confirm).addEventListener("click", showProducts);
 
         }
 }
 
-// ----------------------CREATES MODAL OBJECT----------------------
-class MODALWINDOW {
-    constructor(modal_, overlay_, closeButton, automatic) {
-        this.modal = document.querySelector(modal_);
-        this.overlay = document.querySelector(overlay_);
-        this.closeButton = document.querySelector(closeButton);
-        this.automatic = automatic;
+// ----------------------CREATES OPTIONS SELECTOR OBJECT----------------------
+
+class OPTIONSELECTOR {
+    constructor(hoverElements, cardContainer, productDataSelector) {
+        this.hoverElements = hoverElements, // Menu items that the user will hover over - food types
+        this.cardContainer = cardContainer, // Container where all the cards will be displayed or default cards are displayed before hover
+        this.productDataSelector = productDataSelector // JSON type data to loop through when hovering
     }
 
-    init () {
-        if (this.automatic == false) {
-            this.modal.classList.add("d-none");
-            this.overlay.classList.add("d-none");                        
-        }
+    init() {
+        // Loop through items
+        for (const hoverElement of this.hoverElements) {
+            
+            // With each loop, an event listener is created: hover over category
+            $(hoverElement).mouseenter(()=> {
 
-        this.closeButton.addEventListener("click", () => {
-            this.modal.classList.add("d-none");
-            this.overlay.classList.add("d-none");
-        });
+                // Function that will trigger upon fading out container
+                const insertProducts = () => {
+                    $("#card__structure__container").hide();
+                    
+                    // Hides default products
+                    $(".card__product__featured").hide();
+                    
+                    // Loops through category products
+                    for (const product of this.productDataSelector) {
+                        
+                        // If the ID of the product being hovered matches the product type,
+                        // a card is inserted using the product object data
+                        if (hoverElement == product.type) {
+                            
+                            // Card <div> creation
+                            const div = document.createElement("div");
+                            div.innerHTML = `<div class="card__product card__product__featured">
+                                                <div><img class="image__card" src=${product.image} alt=""></div>
+                                                <div id="result-product-${product.id}" class="card__shopping purchase-icon">
+                                                    <ul>
+                                                        <li class="fa fa-shopping-cart"></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="card__product__label">
+                                                    <p class="product__name__">${product.name}</p>
+                                                    <p class="product__price__">$${product.price}</p>
+                                                </div>
+                                            </div>`
+                            
+                            // Appended to list
+                            $(".featured_items_list").append(div);
 
+                            // Each card "cart" icon needs a different ID so that JQuery can
+                            // query it individually. It wouldn't click the element if we used a class
+                            $(`#result-product-${product.id}`).click( () => {
+                                const ProductName = product.name;
+                                const ProductPrice = product.price;
+                                
+                                // We update the cart items with localstorage info
+                                // This is to avoid overwriting the cart
+                                Cart.init();
+
+                                Cart.contents.push({
+                                    "productName": ProductName,
+                                    "productPrice": ProductPrice
+                                });
         
-        this.overlay.addEventListener("click", () => {
-            this.modal.classList.add("d-none");
-            this.overlay.classList.add("d-none");
-        });
-
-        document.addEventListener("keydown", (e) => {
-            if (e["key"] == "Escape") {
-                this.modal.classList.add("d-none");
-                this.overlay.classList.add("d-none");
-            };
-        });
-
-        
+                                Cart.dumpItems();
+    
+                                navBarCounter.classList.remove("d-none");
+                                navBarCounter.textContent = Cart.contents.length;
+                                
+                            })
+    
+                        } // End of IF
+                    } // End of loop
+                    $("#card__structure__container").fadeIn(500);       
+                }
+                $(this.cardContainer).fadeOut(500, insertProducts);
+            })
+        }  
     }
-
-};
+}
 
 // ----------------------CREATES PRODUCT OBJECT----------------------
 
+// This class was added just in case we needed to add a new product object
 class PRODUCT {
     constructor (id, productName, price, brand, size=[], age=[], recovery=false, specialDiet=false, overweight=false, packageWeight=[]) {
         this.id=id,
@@ -550,6 +647,8 @@ class PRODUCT {
 // ----------------------DEFINES ASYNC FUNCTION TO RETRIEVE DOG BREED DATA----------------------
 
 // Asyncronous function to use the thedogapi to retrieve breed information, returns json
+// I needed an async function because the API response wouldn't load by the time the rest
+// of the script runs.
 async function dogAPIcall() {
     
     const result = await $.ajax({
@@ -568,30 +667,6 @@ async function dogAPIcall() {
 
 // ******************** END OF DEFINITIONS - OBJECT CREATIONS AND METHOD CALLING ********************
 
-// Creates new CART object
-const Cart = new CART(
-    purchaseIcons=".purchase-icon", // Any clickable object that will trigger the action of adding the product to the cart
-    productData=".card__product__label", // Class name that contains the product name and price
-    productNameClass=".product__name__", // Class name of product names
-    productPriceClass=".product__price__", // Class name of prices
-    parentAppendProducts=".product__details", // Class name of div where product prices and names will be appended on payments page
-    totalClassName=".total" // Class name of element showing the total on payments page
-    );
-
-// Listens for DOM content loads and initializes the CART object
-document.addEventListener("DOMContentLoaded", ()=> {
-    Cart.init();
-})
-
-// Call function that listens for click in shopping cart icon
-Cart.addItem();
-
-// Call function that appends divs on "pay" page
-Cart.buildProductsList();
-
-// Call function that listens for click in X icon on "pay" page
-Cart.removeProduct();
-
 // Creates new SLIDER object
 const slider = new SLIDER(
     child_element=".card__slider",
@@ -609,14 +684,15 @@ const modalWindow = new MODALWINDOW(
     automatic=true
 );
 
+// Initializes modal window features
 modalWindow.init()
 
+// Sorting out product data, this is not used in the script, but may be used in future updates
 productsData.sort((a, b) => {
     return a.price - b.price;
 });
 
-const objString = JSON.stringify(productsData)
-
+// New recommendation engine object is created
 const recommendationEngine = new RECOMMENDATION_ENGINE(
     child_element=".recommendation__slider",
     startOver=".start-over",
@@ -624,9 +700,18 @@ const recommendationEngine = new RECOMMENDATION_ENGINE(
     confirmButton=".confirm"
 );
 
+// Recommendation engine features are enabled
 recommendationEngine.init();
 
+// New options selector is created -object that tracks mouse hovers and shows products accordingly
+const optionSelector = new OPTIONSELECTOR(
+    hoverElements=["#Barf", "#Treats", "#Chewing", "#Wet"],
+    cardContainer=".featured_items_list",
+    productDataSelector=featuredProductsData 
+);
 
+// Options selector features are enabled
+optionSelector.init();
 
 // Listens for click on dog breed search button and inserts data as defined on line 553 async function
 $("#breed-submit").click( ()=> {
@@ -656,4 +741,29 @@ $("#breed-submit").click( ()=> {
   
 })
 
+// End of JQuery document ready
 })
+
+// Creates new CART object
+const Cart = new CART(
+    purchaseIcons=".purchase-icon", // Any clickable object that will trigger the action of adding the product to the cart
+    productData=".card__product__label", // Class name that contains the product name and price
+    productNameClass=".product__name__", // Class name of product names
+    productPriceClass=".product__price__", // Class name of prices
+    parentAppendProducts=".product__details", // Class name of div where product prices and names will be appended on payments page
+    totalClassName=".total" // Class name of element showing the total on payments page
+    );
+
+// Listens for DOM content loads and initializes the CART object
+document.addEventListener("DOMContentLoaded", ()=> {
+    Cart.init();
+})
+
+// Call function that listens for click in shopping cart icon
+Cart.addItem();
+
+// Call function that appends divs on "pay" page
+Cart.buildProductsList();
+
+// Call function that listens for click in X icon on "pay" page
+Cart.removeProduct();

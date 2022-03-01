@@ -136,6 +136,16 @@ ul li {
     gap: 2rem;
 }
 
+.featured__list li {
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+.featured__list li:hover {
+    font-weight: bold;
+    font-size: 1.3rem;
+}
+
 /* CARDS */
 
 .card__product {
@@ -262,6 +272,7 @@ ul li {
 
 .image__card {
     width: 138px;
+    height: 149px;
 }
 
 /* SECTIONS */
